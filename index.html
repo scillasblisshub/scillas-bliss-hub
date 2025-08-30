@@ -44,11 +44,6 @@
       display:flex; align-items:center; justify-content:space-between;
 
       /* Fix Book Now button text color */
-.cta {
-  background: var(--dark);
-  color: #fff !important;   /* force white text */
-  font-weight: 600;
-}
 
     }
     .brand{
@@ -286,6 +281,22 @@
     bottom: 14px;
     right: 14px;
   }
+}
+
+    /* Book Now button fix: black bg + white text always */
+.cta,
+.cta a {
+  background: #000 !important;  /* black background */
+  color: #fff !important;       /* force white text */
+  font-weight: 600 !important;
+  border: none;
+}
+
+/* On hover, keep it the same (no color change) */
+.cta:hover,
+.cta a:hover {
+  background: #000 !important;
+  color: #fff !important;
 }
 
   </style>
@@ -597,6 +608,7 @@
   </script>
 </body>
 </html>
+
 
 
 
