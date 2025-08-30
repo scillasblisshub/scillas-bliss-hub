@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scilla's Bliss Hub — Creating Moments of Joy</title>
+  <meta name="description" content="Scilla's Bliss Hub offers elegant event planning, money bouquets, flower bouquets, and romantic proposal packages. Creating moments of joy." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#fff9fb;
+      --text:#201a1c;
+      --muted:#756c70;
+      --primary:#e8c7d4; /* blush */
+      --primary-2:#f6e5ec;
+      --accent:#caa66b;  /* soft gold */
+      --accent-2:#f5ede1;
+      --dark:#121012;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.6;
+    }
+
+    /* Header / Nav */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:rgba(255,255,255,.8);
+      backdrop-filter:saturate(180%) blur(10px);
+      border-bottom:1px solid #eee;
+    }
+    .nav{
+      max-width:1100px; margin:auto; padding:10px 18px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--dark);
+      font-weight:700;
+    }
+    .brand .logo{
+      width:40px; height:40px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--primary), var(--accent-2));
+      box-shadow: var(--shadow);
+      position:relative;
+    }
+    .brand .name{font-family:'Playfair Display', serif; letter-spacing:.3px}
+    nav a{color:var(--dark); text-decoration:none; font-weight:500; padding:10px 12px; border-radius:12px}
+    nav a:hover, nav a.active{background:var(--primary-2)}
+    .menu{display:flex; align-items:center; gap:4px; flex-wrap:wrap}
+    .cta{background:var(--dark); color:#fff; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:600}
+    .cta:hover{opacity:.9}
+    .burger{display:none}
+
+    /* Hero */
+    .hero{
+      position:relative; min-height:84vh; display:grid; place-items:center; overflow:hidden;
+    }
+    .hero-slide{
+      position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity .8s ease;
+      transform: scale(1.02);
+    }
+    .hero-slide.active{opacity:1}
+    .hero::after{
+      content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,.1));
+    }
+    .hero-content{
+      position:relative; z-index:2; text-align:center; color:#fff; padding:0 16px; max-width:900px;
+    }
+    .kicker{display:inline-block; background:rgba(255,255,255,.2); padding:6px 12px; border-radius:999px; font-size:.9rem; letter-spacing:.4px}
+    h1{font-family:'Playfair Display', serif; font-size:clamp(2rem, 5vw, 3.2rem); margin:.6rem 0 1rem}
+    .tag{font-size:1.05rem; opacity:.95}
+    .hero-actions{margin-top:20px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+    .btn{display:inline-block; padding:12px 18px; border-radius:999px; text-decoration:none; font-weight:600}
+    .btn-primary{background:var(--accent); color:#fff}
+    .btn-outline{border:2px solid #fff; color:#fff}
+
+    /* Section base */
+    section{padding:70px 18px}
+    .wrap{max-width:1100px; margin:auto}
+    .section-title{font-family:'Playfair Display', serif; font-size:2rem; margin:0 0 10px}
+    .section-sub{color:var(--muted); margin:0 0 28px}
+
+    /* About */
+    .about{display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; align-items:center}
+    .about img{width:100%; height:100%; object-fit:cover; border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:22px}
+
+    /* Services */
+    .grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+    .service{background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
+    .service img{width:100%; height:180px; object-fit:cover}
+    .service .inner{padding:16px}
+
+    /* Packages */
+    .packages .card{display:flex; gap:16px; align-items:center}
+    .pill{display:inline-block; background:var(--primary-2); padding:6px 12px; border-radius:999px; font-size:.9rem}
+
+    /* Gallery */
+    .gallery-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+    .gallery-grid img{width:100%; height:180px; object-fit:cover; border-radius:14px; cursor:pointer; box-shadow:var(--shadow)}
+
+    /* Testimonials */
+    .testi{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px}
+    .quote{background:#fff; padding:18px; border-radius:var(--radius); box-shadow:var(--shadow)}
+    .quote b{display:block; margin-top:8px}
+
+    /* Contact */
+    form{display:grid; gap:12px}
+    input, textarea, select{
+      padding:12px 14px; border-radius:12px; border:1px solid #e9e6e8; background:#fff; font:inherit
+    }
+    textarea{min-height:120px}
+    .contact-card{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px}
+
+    /* Footer */
+    footer{background: #fff; border-top:1px solid #eee}
+    .foot{max-width:1100px; margin:auto; padding:26px 18px; display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center}
+    .socials{display:flex; gap:10px; align-items:center}
+    .socials a{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--dark); padding:8px 12px; border-radius:999px; background:var(--primary-2)}
+
+    /* Floating WhatsApp */
+    .wa-float{
+      position:fixed; right:20px; bottom:20px; z-index:60;
+      background:#25D366; color:#fff; border-radius:999px; box-shadow: var(--shadow);
+      display:flex; align-items:center; gap:10px; padding:12px 16px; text-decoration:none; font-weight:700;
+    }
+
+    /* Lightbox */
+    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:80}
+    .lightbox.active{display:flex}
+    .lightbox img{max-width:92vw; max-height:86vh; border-radius:16px; box-shadow:0 10px 40px rgba(0,0,0,.6)}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .about{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr}
+      .testi{grid-template-columns:1fr 1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr 1fr}
+      .contact-card{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      nav{display:none}
+      .burger{display:block; background:#fff; border:1px solid #eee; padding:10px 12px; border-radius:12px}
+      .grid{grid-template-columns:1fr}
+      .testi{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr 1fr}
+      .hero{min-height:72vh}
+    }
+
+    /* Mobile menu */
+    .mobile-drawer{position:fixed; inset:0 0 0 auto; width:min(86vw,380px); background:#fff; box-shadow: -10px 0 30px rgba(0,0,0,.15); transform:translateX(110%); transition:transform .3s ease; z-index:70; padding:18px}
+    .mobile-drawer.active{transform:translateX(0)}
+    .mobile-drawer a{display:block; padding:14px 10px; margin-bottom:6px; border-radius:12px; color:var(--dark); text-decoration:none; font-weight:600}
+    .backdrop{position:fixed; inset:0; background:rgba(0,0,0,.2); opacity:0; pointer-events:none; transition:opacity .2s; z-index:60}
+    .backdrop.active{opacity:1; pointer-events:auto}
+  </style>
+</head>
+<body>
+  <!-- Sticky Header -->
+  <header>
+    <div class="nav">
+      <a class="brand" href="#home" aria-label="Scilla's Bliss Hub home">
+        <span class="logo" aria-hidden="true"></span>
+        <span class="name">Scilla's Bliss Hub</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact" class="cta">Book Now</a>
+      </nav>
+      <button class="burger" id="openMenu" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="drawer" aria-hidden="true">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px">
+      <strong>Menu</strong>
+      <button id="closeMenu" class="burger" aria-label="Close menu">✕</button>
+    </div>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#packages">Packages</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#contact" class="cta" style="display:inline-block">Book Now</a>
+  </div>
+  <div class="backdrop" id="backdrop"></div>
+
+  <!-- Hero -->
+  <section class="hero" id="home" aria-label="Hero">
+    <div class="hero-slide active" style="background-image:url('https://images.pexels.com/photos/2879834/pexels-photo-2879834.jpeg');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.pexels.com/photos/8887176/pexels-photo-8887176.jpeg');"></div>
+    <div class="hero-slide" style="background-image:url('https://images.pexels.com/photos/22743506/pexels-photo-22743506.jpeg');"></div>
+
+    <div class="hero-content">
+      <span class="kicker">Creating Moments of Joy</span>
+      <h1>Luxury Events, Bouquets & Romantic Proposals</h1>
+      <p class="tag">From dreamy proposals to unforgettable celebrations, Scilla's Bliss Hub crafts experiences you’ll cherish forever.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://wa.me/233207721326" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-outline" href="#services">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="wrap about">
+      <div class="card">
+        <h2 class="section-title">About Scilla's Bliss Hub</h2>
+        <p class="section-sub">We blend elegance and creativity to transform your special moments into timeless memories.</p>
+        <p>Based in Ghana, <b>Scilla's Bliss Hub</b> delivers full‑service event planning, bespoke flower and money bouquets, and curated proposal packages tailored to your story. Every detail is handled with love and precision—so you can relax and enjoy the magic.</p>
+        <p class="pill">Snapchat: <b>missscilla_xo</b> • Phone: <b>0207721326</b></p>
+      </div>
+      <img src="/images/miss1.jpg" alt="Elegant event table setup with candles and flowers" />
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="wrap">
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">Choose from our signature offerings or mix & match to fit your occasion.</p>
+      <div class="grid">
+        <div class="service">
+          <img src="/images/event.jpg" alt="Wedding aisle with flowers" />
+          <div class="inner">
+            <h3>Event Planning</h3>
+            <p>Weddings, birthdays, and corporate events—end‑to‑end coordination, styling, and execution.</p>
+          </div>
+        </div>
+        <div class="service">
+          <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?q=80&w=1200&auto=format&fit=crop" alt="Fresh flower bouquet" />
+          <div class="inner">
+            <h3>Flower Bouquets</h3>
+            <p>Hand‑tied bouquets designed with premium stems for any mood or milestone.</p>
+          </div>
+        </div>
+        <div class="service">
+          <img src="/images/pexels-nudethephotographer-32793764.jpg" alt="Money bouquet arrangement" />
+          <div class="inner">
+            <h3>Money Bouquets</h3>
+            <p>Unique cash‑wrapped bouquets for wow‑factor gifting. Custom denominations available.</p>
+          </div>
+        </div>
+        <div class="service">
+          <img src="/images/proposal.jpg" alt="Romantic candlelight proposal setup" />
+          <div class="inner">
+            <h3>Proposal Packages</h3>
+            <p>Romantic setups, surprise planning, music, and photography tailored to your love story.</p>
+          </div>
+        </div>
+        <div class="service">
+          <img src="/images/addons.jpg" alt="Balloon and décor details" />
+          <div class="inner">
+            <h3>Add‑Ons & Décor</h3>
+            <p>Balloons, backdrops, candles, table styling, gift wrapping, live music & more.</p>
+          </div>
+        </div>
+        <div class="service">
+          <img src="/images/pexels-hatice-uyar-460317377-18480755.jpg" alt="Photographer capturing a moment" />
+          <div class="inner">
+            <h3>Other Special Requests</h3>
+            <p>Trusted creatives to capture your memories beautifully (upon request).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages" class="packages">
+    <div class="wrap">
+      <h2 class="section-title">Featured Packages</h2>
+      <p class="section-sub">Transparent, flexible, and customizable. Add or remove items to suit your budget.</p>
+
+      <div class="card" style="margin-bottom:12px">
+        <img src="/images/romantic.jpg" alt="Romantic proposal" style="width:120px; height:120px; object-fit:cover; border-radius:14px">
+        <div>
+          <h3>Romantic Proposal</h3>
+          <p class="section-sub" style="margin:6px 0 10px">Candles • Rose petals • Music  • Personalized signage</p>
+          <span class="pill">Custom designs, tailored to suit your needs.</span>
+        </div>
+        <div style="margin-left:auto"><a class="btn btn-primary" href="https://wa.me/233207721326?text=Hello%20Scilla%2C%20I%27m%20interested%20in%20the%20Romantic%20Proposal%20package" target="_blank" rel="noopener">Enquire</a></div>
+      </div>
+
+      <div class="card" style="margin-bottom:12px">
+        <img src="/images/birthdaybliss.jpg" alt="Birthday décor" style="width:120px; height:120px; object-fit:cover; border-radius:14px">
+        <div>
+          <h3>Birthday Bliss</h3>
+          <p class="section-sub" style="margin:6px 0 10px">Backdrop • Balloons • Table styling • Cake stand • Custom bouquet</p>
+          <span class="pill">Making every moment magical!</span>
+        </div>
+        <div style="margin-left:auto"><a class="btn btn-primary" href="https://wa.me/233207721326?text=Hello%20Scilla%2C%20I%27m%20interested%20in%20the%20Birthday%20Bliss%20package" target="_blank" rel="noopener">Enquire</a></div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?q=80&w=800&auto=format&fit=crop" alt="Elegant bouquet" style="width:120px; height:120px; object-fit:cover; border-radius:14px">
+        <div>
+          <h3>Luxury Bouquet Special</h3>
+          <p class="section-sub" style="margin:6px 0 10px">Premium stems • Custom wrap • Handwritten note • Same‑day options</p>
+          <span class="pill"> Money bouquet upon request</span>
+        </div>
+        <div style="margin-left:auto"><a class="btn btn-primary" href="https://wa.me/233207721326?text=Hello%20Scilla%2C%20I%27d%20love%20a%20Luxury%20Bouquet%20please" target="_blank" rel="noopener">Order</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  
+  <!-- Lightbox viewer -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <img id="lightboxImg" alt="Expanded gallery item" />
+  </div>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="wrap">
+      <h2 class="section-title">Loved by Clients</h2>
+      <p class="section-sub">Real words from real celebrations.</p>
+      <div class="testi">
+        <div class="quote">“Scilla made my proposal unforgettable—every detail was perfect.” <b>— Richard Quartey.</b></div>
+        <div class="quote">“The bouquet was stunning and smelled heavenly. 10/10!” <b>— Nana Ama.</b></div>
+        <div class="quote">“Professional, kind, and creative. Our date felt like a dream.” <b>— Naa Adorkor.</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Booking -->
+  <section id="contact">
+    <div class="wrap">
+      <h2 class="section-title">Book Scilla's Bliss Hub</h2>
+      <p class="section-sub">Tell us about your occasion and we’ll respond promptly on WhatsApp or phone.</p>
+
+      <div class="contact-card">
+        <div class="card">
+          <form id="bookingForm" onsubmit="return false">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+              <input required type="text" id="name" placeholder="Your name" />
+              <input required type="tel" id="phone" placeholder="Your phone" />
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+              <select id="type">
+                <option>Event Planning</option>
+                <option>Flower Bouquet</option>
+                <option>Money Bouquet</option>
+                <option>Proposal Package</option>
+                <option>Other</option>
+              </select>
+              <input type="date" id="date" />
+            </div>
+            <textarea id="message" placeholder="Share details (theme, budget, location, etc.)"></textarea>
+            <div style="display:flex; gap:10px; flex-wrap:wrap">
+              <button class="btn btn-primary" id="sendWhatsApp">Send via WhatsApp</button>
+              <a class="btn" style="border:2px solid var(--dark); color:var(--dark)" href="tel:0207721326">Call 0207721326</a>
+            </div>
+          </form>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Contact</h3>
+          <p><b>Phone/WhatsApp:</b> 0207721326</p>
+          <p><b>Snapchat:</b> missscilla_xo</p>
+          <p>Available for bookings across Ghana. Travel & destination events upon request.</p>
+          <a class="btn btn-primary" href="https://wa.me/233207721326" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+  <div class="foot">
+    <div>© <span id="year"></span> Scilla's Bliss Hub — <i>Creating Moments of Joy</i></div>
+    <div class="socials">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/233207721326" target="_blank" rel="noopener" aria-label="WhatsApp">💬 WhatsApp</a>
+      <!-- Snapchat -->
+      <a href="https://www.snapchat.com/add/missscilla_xo" target="_blank" rel="noopener" aria-label="Snapchat">👻 missscilla_xo</a>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- Floating WhatsApp -->
+  <a class="wa-float" href="https://wa.me/233207721326" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <span>WhatsApp</span>
+  </a>
+
+  <script>
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile drawer logic
+    const drawer = document.getElementById('drawer');
+    const backdrop = document.getElementById('backdrop');
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const toggleDrawer = (open) => {
+      drawer.classList.toggle('active', open);
+      backdrop.classList.toggle('active', open);
+      drawer.setAttribute('aria-hidden', String(!open));
+    }
+    openBtn.addEventListener('click', ()=>toggleDrawer(true));
+    closeBtn.addEventListener('click', ()=>toggleDrawer(false));
+    backdrop.addEventListener('click', ()=>toggleDrawer(false));
+    drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>toggleDrawer(false)));
+
+    // Highlight active nav link on scroll
+    const links = Array.from(document.querySelectorAll('header nav a'));
+    const sections = links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          links.forEach(l=>l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        }
+      })
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+    sections.forEach(s=>obs.observe(s));
+
+    // Simple hero slider
+    const slides = Array.from(document.querySelectorAll('.hero-slide'));
+    let idx = 0;
+    setInterval(()=>{
+      slides[idx].classList.remove('active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('active');
+    }, 4200);
+
+    // Lightbox for gallery
+    const grid = document.getElementById('galleryGrid');
+    const lightbox = document.getElementById('lightbox');
+    const lightImg = document.getElementById('lightboxImg');
+    grid.addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.tagName === 'IMG'){
+        lightImg.src = t.src;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden','false');
+      }
+    });
+    lightbox.addEventListener('click', ()=>{
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden','true');
+    });
+
+    // WhatsApp compose from form
+    const btnWA = document.getElementById('sendWhatsApp');
+    btnWA.addEventListener('click', ()=>{
+      const name = encodeURIComponent(document.getElementById('name').value.trim());
+      const phone = encodeURIComponent(document.getElementById('phone').value.trim());
+      const type = encodeURIComponent(document.getElementById('type').value);
+      const date = encodeURIComponent(document.getElementById('date').value);
+      const msg = encodeURIComponent(document.getElementById('message').value.trim());
+      const text = `Hello Scilla, my name is ${name}. I am interested in ${type}. Date: ${date}. Phone: ${phone}. Details: ${msg}`;
+      const url = `https://wa.me/233207721326?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
